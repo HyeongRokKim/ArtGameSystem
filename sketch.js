@@ -1,4 +1,9 @@
 let backCa=0, backCb=0,backCc=0;
+
+let canvas;
+let canvasWidth = 600;
+let canvasHeight = 400;
+
 let x = [],
   y = [],
   segNum = 20,
@@ -16,7 +21,9 @@ for (let i = 0; i < segNum; i++) {
 }
 
 function setup() {
-  createCanvas(710, 400);
+  canvas = createCanvas(canvasWidth, canvasHeight);
+  canvas.position(windowWidth/2 - canvasWidth/2, 20);
+
   strokeWeight(10);
   stroke(255,80);
 
