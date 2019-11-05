@@ -1,7 +1,7 @@
 # ArtGameSystem
 Art Game System Template
 
-#이름
+# 이름
  * 김형록 <rokkid2015@gmail.com>
 
 # 추가된 외부 라이브러리
