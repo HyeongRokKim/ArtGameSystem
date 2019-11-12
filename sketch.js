@@ -2,7 +2,7 @@
 //Click to create a new sprite with random speed
 
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(600, 400);
 }
 
 function draw() {
