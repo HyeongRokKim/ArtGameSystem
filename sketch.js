@@ -1,4 +1,6 @@
-//Sprite creation
+let canvas;
+let canvasWidth = 600;
+let canvasHeight = 400;//Sprite creation
 //Click to create a new sprite with random speed
 
 function setup() {
