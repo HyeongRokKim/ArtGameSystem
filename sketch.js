@@ -4,7 +4,9 @@ let canvasHeight = 400;//Sprite creation
 //Click to create a new sprite with random speed
 
 function setup() {
-  createCanvas(600, 400);
+  canvas = createCanvas(canvasWidth, canvasHeight);
+  canvas.position(windowWidth/2 - canvasWidth/2, 20);
+
 }
 
 function draw() {
