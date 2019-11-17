@@ -19,15 +19,15 @@ function setup() {
 ghosts = new Group();
 clouds = new Group();
 
-asterisk = createSprite(random(0, width), random(0, height),50,100);
+asterisk = createSprite(random(0, width), random(0, height),10,10,100);
 //assign new sprites to the respective groups
 for(var i = 0; i<19; i++) {
-var newGhost = createSprite(random(0, width), random(0, height),100);
+var newGhost = createSprite(random(0, width), random(0, height));
 ghosts.add(newGhost);
 }
 
 for(var j = 0; j<6; j++) {
-var newCloud = createSprite(random(0, width), random(0, height),100);
+var newCloud = createSprite(random(0, width), random(0, height));
 //set a rotation speed
 newCloud.rotationSpeed = -2;
 //another way to add a sprite to a group
