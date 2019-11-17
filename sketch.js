@@ -1,168 +1,61 @@
-let backCa=0, backCb=0,backCc=0;
+//Sprite Groups
+//different groups are drawn in a diffent order and accessed as arrays
 
-let canvas;
+var clouds;
+var ghosts;
+var asterisk;
+
 let canvasWidth = 600;
 let canvasHeight = 400;
-
-let x = [],
-  y = [],
-  segNum = 20,
-  segLength = 10;
-
-let bX, bY;
-let vX, vY;
-
-let ball;
-let balls = [];
-
-for (let i = 0; i < segNum; i++) {
-  x[i] = 0;
-  y[i] = 0;
-}
 
 function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position(windowWidth/2 - canvasWidth/2, 20);
+//in games you often have many sprites having similar properties behaviors
+//(e.g. pills and ghosts in pacMan)
+//You can use groups to organize and access them without having many global
+//variables. A sprite can belong to multiple groups.
+//create empty groups
+ghosts = new Group();
+clouds = new Group();
 
-  strokeWeight(10);
-  stroke(255,80);
-
-
-  textSize(width/35);
-  textAlign(CENTER, CENTER);
-
-
-  foodLocation();
-
-   vx = random(5);
-   vy = random(5);
-
-   for (let i = 0; i < 100; i++) {
-    let b = new Ball();
-    b.w = 10;
-    b.c =color(random(0,255),random(0,250),random(0,250),100);
-    balls.push(b);
-   }
-
-  setInterval(foodLocation,5000);
-
+asterisk = createSprite(random(0, width), random(0, height));
+//assign new sprites to the respective groups
+for(var i = 0; i<6; i++) {
+var newGhost = createSprite(random(0, width), random(0, height));
+ghosts.add(newGhost);
 }
 
-function foodLocation() {
-  let a = floor(random(width)-20);
-  let b = floor(random(height)-20);
-  food = createVector(a, b);
+for(var j = 0; j<6; j++) {
+var newCloud = createSprite(random(0, width), random(0, height));
+//set a rotation speed
+newCloud.rotationSpeed = -2;
+//another way to add a sprite to a group
+newCloud.addToGroup(clouds);
 }
-
+}
 
 function draw() {
-  background(backCa,backCb,backCc,50);
+background(255, 255, 255);
 
-  text('when you click the mouse the color of the background will change',350, 30);
-
-
-
-  drawFood();
-  dragSegment(0, mouseX, mouseY);
-  for (let i = 0; i < x.length - 1; i++) {
-    dragSegment(i + 1, x[i], y[i]);
-  }
-
-  if(mouseX >= food.x &&
-     mouseX <= food.x + 20 &&
-     mouseY >= food.y &&
-     mouseY <= food.y + 20){
-
-    balling();
-
-    // 마우스가 음식에 닿으면 공이 튀어나오게 했는데
-    // 그 뒤에 바로 foodLocation(); 해서 음식 위치 변하게 할라했는데
-    // 그렇게 되면 공 튀기는게 거의 안보임
-
-  }
-
-    if(mouseIsPressed==true){
-    backCa = random(255);
-    backCb = random(255);
-    backCc = random(255);
-
-    //여기에 background(random(255),random(255),random(255)); 를 했는데ㅠ
-    // 잠깐 깜박이고 말고
-
-
-
-   }
-
-
+//a group can be accessed like an array
+//the removed objects will be automatically removed from the groups as well
+for(var i = 0; i<ghosts.length; i++) {
+var g = ghosts[i];
+//moving all the ghosts y following a sin function (sinusoid)
+g.position.y += sin(frameCount/10);
 }
 
-function balling(){
-  for (let i = 0; i < balls.length; i++) {
-      balls[i].draw();
-      balls[i].move();
-      balls[i].bounce();
-    }
-}
+asterisk.position.x = mouseX;
+asterisk.position.y = mouseY;
 
-function drawFood(){
+//instead of drawing all sprites with drawSprites();
+//you can draw them selectively by group or single instance
+//in the order you want
 
-  fill(255);
-  rect(food.x, food.y, 20, 20,5);
-}
-
-function dragSegment(i, xin, yin) {
-  const dx = xin - x[i];
-  const dy = yin - y[i];
-  const angle = atan2(dy, dx);
-  x[i] = xin - cos(angle) * segLength;
-  y[i] = yin - sin(angle) * segLength;
-  segment(x[i], y[i], angle);
-}
-
-function segment(x, y, a) {
-  push();
-  translate(x, y);
-  rotate(a);
-  line(0, 0, segLength, 0);
-  pop();
-}
-
-  class Ball {
-    constructor() {
-      this.x = food.x;
-      this.y = food.y;
-      this.vx = random(-5, 5);
-      this.vy = random(-5, 5);
-      this.w = 10;
-      this.c = color(200);
-    }
-
-    draw() {
-      fill(this.c);
-      rect(this.x, this.y, this.w, this.w,random(1,5));
-    }
-
-    move() {
-      this.x = this.x + this.vx;
-      this.y = this.y + this.vy;
-    }
-
-    beBigger(){
-      this.w = this.w+5;
-    }
-
-    bounce() {
-      if (this.x < 0 || width < this.x) {
-        this.vx = this.vx * -1;
-        this.beBigger();
-        fill(this.c);
-      }
-
-      if (this.y < 0 || height < this.y){
-        this.vy = this.vy * -1;
-        this.beBigger();
-        fill(this.c);
-      }
-    }
-
+//e.g. even if the clouds should appear on the top of the ghosts
+//I impose a rendering before the others sprites
+drawSprites(clouds);
+drawSprites(ghosts);
+drawSprite(asterisk);
 }
