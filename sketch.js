@@ -13,10 +13,7 @@ function setup() {
 
   //create the sprites
   ghost = createSprite(600, 200, 50, 100);
-  ghost.addAnimation('floating', 'assets/ghost_standing0001.png', 'assets/ghost_standing0007.png');
-
   circle = createSprite(400, 200, 50, 100);
-  circle.addAnimation('floating', 'assets/asterisk_circle0006.png', 'assets/asterisk_circle0008.png');
 
 }
 
