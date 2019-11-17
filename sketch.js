@@ -32,7 +32,7 @@ function draw() {
 
   //or by applying a force toward a point
   //force (acceleration), pointx, pointy
-  ghost.attractionPoint(0.2, mouseX, mouseY);
+  ghost.attractionPoint(1, mouseX, mouseY);
   //since the force keeps incrementing the speed you can
   //set a limit to it with maxSpeed
   ghost.maxSpeed = 5;
