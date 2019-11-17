@@ -21,7 +21,7 @@ clouds = new Group();
 
 asterisk = createSprite(random(0, width), random(0, height));
 //assign new sprites to the respective groups
-for(var i = 0; i<6; i++) {
+for(var i = 0; i<19; i++) {
 var newGhost = createSprite(random(0, width), random(0, height));
 ghosts.add(newGhost);
 }
