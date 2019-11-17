@@ -22,7 +22,7 @@ function draw() {
 
   //aside of setting the velocity directly you can move a sprite
   //by providing a speed and an angle
-  direction += 5;
+  direction += 18;
   //speed, angle
   circle.setSpeed(3, direction);
 
