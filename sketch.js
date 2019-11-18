@@ -10,7 +10,7 @@ function setup() {
   canvas.position(windowWidth/2 - canvasWidth/2, 20);
   circles = new Group();
 
-  for(var i=0; i<20; i++)
+  for(var i=0; i<200; i++)
   {
     var circle = createSprite(random(0, width), random(0, height));
     circle.setSpeed(random(2, 3), random(0, 360));
@@ -56,7 +56,7 @@ function setup() {
      for(var i=0; i<allSprites.length; i++) {
        var s = allSprites[i];
        if(s.position.x<0) {
-         s.position.x = 0;
+         s.position.x = 1;
          s.velocity.x = abs(s.velocity.x);
        }
 
