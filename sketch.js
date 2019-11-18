@@ -57,12 +57,13 @@ function setup() {
        var s = allSprites[i];
        if(s.position.x<0) {
          s.position.x = 1;
+         s.velocity.x = -s.velocity.x;
 
        }
 
        if(s.position.x>width) {
          s.position.x = width-1;
-        
+        s.velocity.x = -s.velocity.x;
        }
 
        if(s.position.y<0) {
