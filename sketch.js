@@ -39,7 +39,7 @@ function setup() {
     //rotation rotates the collider too but it will always be an axis oriented
     //bounding box, that is an ortogonal rectangle
     if(j%2==0)
-      box.rotation = 90;
+      box.rotation = 170;
 
     boxes.add(box);
   }
