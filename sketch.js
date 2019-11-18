@@ -1,168 +1,84 @@
-let backCa=0, backCb=0,backCc=0;
-
 let canvas;
 let canvasWidth = 600;
 let canvasHeight = 400;
 
-let x = [],
-  y = [],
-  segNum = 20,
-  segLength = 10;
-
-let bX, bY;
-let vX, vY;
-
-let ball;
-let balls = [];
-
-for (let i = 0; i < segNum; i++) {
-  x[i] = 0;
-  y[i] = 0;
-}
+var circles;
+var boxes;
 
 function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position(windowWidth/2 - canvasWidth/2, 20);
+  circles = new Group();
 
-  strokeWeight(10);
-  stroke(255,80);
+  for(var i=0; i<20; i++)
+  {
+    var circle = createSprite(random(0, width), random(0, height));
+    circle.addAnimation('normal', 'assets/asterisk_circle0006.png', 'assets/asterisk_circle0008.png');
+    circle.setCollider('circle', -2, 2, 55);
+    circle.setSpeed(random(2, 3), random(0, 360));
 
-
-  textSize(width/35);
-  textAlign(CENTER, CENTER);
-
-
-  foodLocation();
-
-   vx = random(5);
-   vy = random(5);
-
-   for (let i = 0; i < 100; i++) {
-    let b = new Ball();
-    b.w = 10;
-    b.c =color(random(0,255),random(0,250),random(0,250),100);
-    balls.push(b);
-   }
-
-  setInterval(foodLocation,5000);
-
-}
-
-function foodLocation() {
-  let a = floor(random(width)-20);
-  let b = floor(random(height)-20);
-  food = createVector(a, b);
-}
-
-
-function draw() {
-  background(backCa,backCb,backCc,50);
-
-  text('when you click the mouse the color of the background will change',350, 30);
-
-
-
-  drawFood();
-  dragSegment(0, mouseX, mouseY);
-  for (let i = 0; i < x.length - 1; i++) {
-    dragSegment(i + 1, x[i], y[i]);
+    //scale affects the size of the collider
+    circle.scale = random(0.5, 1);
+    //mass determines the force exchange in case of bounce
+    circle.mass = circle.scale;
+    //restitution is the dispersion of energy at each bounce
+    //if = 1 the circles will bounce forever
+    //if < 1 the circles will slow down
+    //if > 1 the circles will accelerate until they glitch
+    //circle.restitution = 0.9;
+    circles.add(circle);
   }
 
-  if(mouseX >= food.x &&
-     mouseX <= food.x + 20 &&
-     mouseY >= food.y &&
-     mouseY <= food.y + 20){
+  boxes = new Group();
 
-    balling();
+  for(var j=0; j<4; j++)
+  {
+    var box = createSprite(random(0, width), random(0, height));
+    box.addAnimation('normal', 'assets/box0001.png', 'assets/box0003.png');
+    //setting immovable to true makes the sprite immune to bouncing and displacements
+    //as if with infinite mass
+    box.immovable = true;
 
-    // 마우스가 음식에 닿으면 공이 튀어나오게 했는데
-    // 그 뒤에 바로 foodLocation(); 해서 음식 위치 변하게 할라했는데
-    // 그렇게 되면 공 튀기는게 거의 안보임
+    //rotation rotates the collider too but it will always be an axis oriented
+    //bounding box, that is an ortogonal rectangle
+    if(j%2==0)
+      box.rotation = 90;
 
+    boxes.add(box);
   }
+}
 
-    if(mouseIsPressed==true){
-    backCa = random(255);
-    backCb = random(255);
-    backCc = random(255);
+ function draw() {
+     background(255, 255, 255);
+     //circles bounce against each others and against boxes
+     circles.bounce(circles);
+     //boxes are "immovable"
+     circles.bounce(boxes);
 
-    //여기에 background(random(255),random(255),random(255)); 를 했는데ㅠ
-    // 잠깐 깜박이고 말고
+     //all sprites bounce at the screen edges
+     for(var i=0; i<allSprites.length; i++) {
+       var s = allSprites[i];
+       if(s.position.x<0) {
+         s.position.x = 1;
+         s.velocity.x = abs(s.velocity.x);
+       }
 
+       if(s.position.x>width) {
+         s.position.x = width-1;
+         s.velocity.x = -abs(s.velocity.x);
+       }
 
+       if(s.position.y<0) {
+         s.position.y = 1;
+         s.velocity.y = abs(s.velocity.y);
+       }
+
+       if(s.position.y>height) {
+         s.position.y = height-1;
+         s.velocity.y = -abs(s.velocity.y);
+       }
+     }
+
+     drawSprites();
 
    }
-
-
-}
-
-function balling(){
-  for (let i = 0; i < balls.length; i++) {
-      balls[i].draw();
-      balls[i].move();
-      balls[i].bounce();
-    }
-}
-
-function drawFood(){
-
-  fill(255);
-  rect(food.x, food.y, 20, 20,5);
-}
-
-function dragSegment(i, xin, yin) {
-  const dx = xin - x[i];
-  const dy = yin - y[i];
-  const angle = atan2(dy, dx);
-  x[i] = xin - cos(angle) * segLength;
-  y[i] = yin - sin(angle) * segLength;
-  segment(x[i], y[i], angle);
-}
-
-function segment(x, y, a) {
-  push();
-  translate(x, y);
-  rotate(a);
-  line(0, 0, segLength, 0);
-  pop();
-}
-
-  class Ball {
-    constructor() {
-      this.x = food.x;
-      this.y = food.y;
-      this.vx = random(-5, 5);
-      this.vy = random(-5, 5);
-      this.w = 10;
-      this.c = color(200);
-    }
-
-    draw() {
-      fill(this.c);
-      rect(this.x, this.y, this.w, this.w,random(1,5));
-    }
-
-    move() {
-      this.x = this.x + this.vx;
-      this.y = this.y + this.vy;
-    }
-
-    beBigger(){
-      this.w = this.w+5;
-    }
-
-    bounce() {
-      if (this.x < 0 || width < this.x) {
-        this.vx = this.vx * -1;
-        this.beBigger();
-        fill(this.c);
-      }
-
-      if (this.y < 0 || height < this.y){
-        this.vy = this.vy * -1;
-        this.beBigger();
-        fill(this.c);
-      }
-    }
-
-}
