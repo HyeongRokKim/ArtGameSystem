@@ -56,7 +56,7 @@ function setup() {
      for(var i=0; i<allSprites.length; i++) {
        var s = allSprites[i];
        if(s.position.x<0) {
-         s.position.x = 1;
+         s.position.x = 0;
          s.velocity.x = abs(s.velocity.x);
        }
 
