@@ -4,10 +4,11 @@ let ghostMode = true;
 const width = 10;
 const height = 22;
 
+let canvas;
+let canvasWidth = 600;
+let canvasHeight = 400;
+
 function setup() {
-
-
-  canvas.position(windowWidth/2 - canvasWidth/2, 20);
   playfield = new Playfield(width, height);
 
   textSize(width/35);
@@ -17,6 +18,7 @@ function setup() {
 	let totalHeight = playfield.cellSize * height + playfield.borderSize*2;
 
   createCanvas(totalWidth, totalHeight);
+  canvas.position(windowWidth/2 - canvasWidth/2, 20);
 
  	spawnNewPiece();
 }
