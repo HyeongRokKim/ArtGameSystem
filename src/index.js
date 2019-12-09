@@ -105,11 +105,20 @@ class Block {
         this.rotate()
         break
       }
-
     }
   }
 
-
+  findCollison(field) {
+    const { x, y } = this.position
+    this.cells.forEach((rows, i) => {
+      rows.forEach((cell, j) => {
+        if (cell && ((y + i >= numberOfRows) || field[y + i][x + j])) {
+          this.isAlive = false
+          return
+        }
+      })
+    })
+  }
 }
 Block.timeToChange = 1000
 
@@ -128,6 +137,10 @@ const canMoveLeft = (block, field) => {
   return true
 }
 
+const updateScore = (score) => {
+  const scoreElem = document.getElementById('score')
+  scoreElem.innerHTML = score
+}
 
 const drawField = (field, ctx) => {
   field.forEach((row, rowIndex) => {
