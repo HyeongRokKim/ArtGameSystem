@@ -137,11 +137,6 @@ const canMoveLeft = (block, field) => {
   return true
 }
 
-const updateScore = (score) => {
-  const scoreElem = document.getElementById('score')
-  scoreElem.innerHTML = score
-}
-
 const drawField = (field, ctx) => {
   field.forEach((row, rowIndex) => {
     row.forEach((cell, columnIndex) => {
