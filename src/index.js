@@ -105,6 +105,11 @@ class Block {
         this.rotate()
         break
       }
+      case ' ' : {
+        this.prevPosition.x
+        this.prevPosition.year()
+        break
+      }
     }
   }
 
