@@ -5,8 +5,6 @@ const width = 10;
 const height = 22;
 
 let canvas;
-let canvasWidth = 600;
-let canvasHeight = 400;
 
 function setup() {
   playfield = new Playfield(width, height);
@@ -18,7 +16,6 @@ function setup() {
 	let totalHeight = playfield.cellSize * height + playfield.borderSize*2;
 
   createCanvas(totalWidth, totalHeight);
-  canvas.position(windowWidth/2 - canvasWidth/2, 20);
 
  	spawnNewPiece();
 }
