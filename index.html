@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <script src="lib/p5.js"></script>
-  <script src="lib/p5.dom.min.js"></script>
-  <script src="lib/p5.sound.min.js"></script>
-  <script src="lib/p5.play.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8">
-</head>
-<body>
-  <script src="sketch.js"></script>
-  <script src="Piece.js"></script>
-  <script src="Playfield.js"></script>
-  <script src="handleKeyboard.js"></script>
-
-
-  <div id="content">
-  <div id="text">
-    <h1> Random drawing using tetris </h1>
-    Kim Hyeong Rok
-    1923030
-
-  </div>
-  <div id="footer">SIA Art Game System 2019</div>
-  </div>
-</body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="src/index.js"></script>
+    <style media="screen">
+      body {
+        background-color: steelblue;
+      }
+      #map {
+        display: block;
+        margin: 10px auto 0 auto;
+        border: 1px solid white;
+      }
+      #score {
+        margin: 20px auto;
+        text-align: center;
+        font: 35px Comic Sans MS;
+        color: white;
+      }
+    </style>
+    <div>
+      <div id="score">0</div>
+      <canvas id="map" width="300" height="600"></canvas>
+    </div>
+  </body>
 </html>
