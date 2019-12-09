@@ -5,6 +5,9 @@ const width = 10;
 const height = 22;
 
 function setup() {
+
+
+  canvas.position(windowWidth/2 - canvasWidth/2, 20);
   playfield = new Playfield(width, height);
 
   textSize(width/35);
