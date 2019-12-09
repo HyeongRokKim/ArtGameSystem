@@ -1,4 +1,4 @@
-const mapWidth = 300
+const mapWidth = 800
 const mapHeight = 600
 const numberOfRows = 20
 const numberOfCols = 10
