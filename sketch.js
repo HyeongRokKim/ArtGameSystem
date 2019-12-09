@@ -1,24 +1,23 @@
+// https://editor.p5js.org/ARatherLongUsername/sketches/SkxeigFOX
+
 let playfield, fallingPiece, ghostPiece, paused;
 let ghostMode = true;
 
 const width = 10;
 const height = 22;
 
-let canvas;
-
 function setup() {
-  playfield = new Playfield(width, height);
+	playfield = new Playfield(width, height);
 
-  textSize(width/35);
-  textAlign(CENTER, CENTER);
-
-  let totalWidth = playfield.cellSize * width + playfield.borderSize*2;
+	let totalWidth = playfield.cellSize * width + playfield.borderSize*2;
 	let totalHeight = playfield.cellSize * height + playfield.borderSize*2;
 
-  createCanvas(totalWidth, totalHeight);
+	createCanvas(totalWidth, totalHeight);
 
- 	spawnNewPiece();
+	spawnNewPiece();
 }
+
+
 let prev = 0;
 function draw() {
 
