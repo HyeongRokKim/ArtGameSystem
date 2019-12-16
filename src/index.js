@@ -1,7 +1,7 @@
 const mapWidth = 1200
 const mapHeight = 600
-const numberOfRows = 1200
-const numberOfCols = 200
+const numberOfRows = 120
+const numberOfCols = 100
 const cellSize = mapWidth / numberOfCols
 const borderSize = 0.1
 
