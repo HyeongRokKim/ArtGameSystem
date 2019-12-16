@@ -3,7 +3,7 @@ const mapHeight = 600
 const numberOfRows = 80
 const numberOfCols = 10
 const cellSize = mapWidth / numberOfCols
-const borderSize = 0.2
+const borderSize = 0.1
 
 const zType = [
   [1, 1, 0],
